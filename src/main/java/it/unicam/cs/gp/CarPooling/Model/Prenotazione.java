@@ -1,7 +1,9 @@
 package it.unicam.cs.gp.CarPooling.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Data
@@ -17,8 +19,11 @@ public class Prenotazione {
     @Enumerated(EnumType.STRING)
     private FasciaOraria fasciaOrariaPrenotazione;
 
+
     @ManyToOne
-    @JoinColumn(name = "utente_id")
+    @EqualsAndHashCode.Exclude
+    @JoinColumn(name = "id_utente", referencedColumnName = "id_utente")
+    @JsonBackReference
     private Utente utente;
 
     // Costruttori, Getter e Setter
