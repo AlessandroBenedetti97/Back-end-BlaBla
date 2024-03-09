@@ -1,10 +1,13 @@
 package it.unicam.cs.gp.CarPooling.Service;
 
+import com.azure.core.annotation.HeaderParam;
+import it.unicam.cs.gp.CarPooling.Jwt.JwtServiceInterface;
 import it.unicam.cs.gp.CarPooling.Model.*;
 import it.unicam.cs.gp.CarPooling.Repository.PrenotazioneRepository;
 import it.unicam.cs.gp.CarPooling.Repository.UtenteRepository;
 import it.unicam.cs.gp.CarPooling.Request.BookingRequest;
 import it.unicam.cs.gp.CarPooling.Request.SignUpRequest;
+import org.apache.qpid.proton.codec.security.SaslOutcomeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +18,25 @@ public class PrenotazioneService {
     private PrenotazioneRepository prenotazioneRepository;
 
     @Autowired
+    private JwtServiceInterface jwtService;
+    @Autowired
     private UtenteRepository utenteRepository;
 
-    public String prenota(BookingRequest bookingRequest) {
+    public String prenota(BookingRequest bookingRequest, String token) {
+
+
+        // prendi token e deserializza token
+        // prendi mail
+        // query che getta l'utente dalla mail -> prendi id
+        // Deserializza il token per ottenere le informazioni sull'utente
+        String userEmail = jwtService.extractUserName(token);
+
+        // Esegue la query per ottenere l'utente basato sull'email
+        Utente utente = utenteRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
 
         Prenotazione prenotazione = new Prenotazione();
-        prenotazione.setId(bookingRequest.getId_utente());
+        prenotazione.setUtente(utente);
         prenotazione.setFasciaOrariaPrenotazione(bookingRequest.getFascia_oraria_prenotazione());
         prenotazione.setGiornoSettimana(bookingRequest.getGiorno_prenotazione());
 

@@ -19,9 +19,11 @@ public class PrenotazioneController {
     private PrenotazioneService prenotazioneService;
 
     @PostMapping(path = "/book")
-    public ResponseEntity<String> book(@RequestBody BookingRequest request) {
+    public ResponseEntity<String> book(@RequestBody BookingRequest request,
+                                       @RequestHeader("Authorization") String token) {
         try {
-            String result = prenotazioneService.prenota(request);
+            String cleanedToken = token.replace("Bearer ", "");
+            String result = prenotazioneService.prenota(request, cleanedToken);
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             e.printStackTrace();

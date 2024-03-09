@@ -13,8 +13,6 @@ import java.io.Serializable;
 @Setter
 public class BookingRequest {
 
-    @JsonProperty("id_utente")
-    public Integer id_utente;
     @JsonProperty("fascia_oraria_prenotazione")
     public FasciaOraria fascia_oraria_prenotazione;
     @JsonProperty("giorno_prenotazione")
