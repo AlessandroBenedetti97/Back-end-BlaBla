@@ -32,12 +32,13 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers(
-                        "api/user/createUser", "api/user/getUsers", "api/user/login"
+                        "api/user/createUser", "api/user/login"
                                 ).permitAll()
                         .requestMatchers("api/admin/approved","api/admin/dashboard",
+                                "api/user/getUsers",
                                 "api/admin/delete","api/admin/rejected",
                                 "api/admin/allProducer/notActive",
-                                "api/admin/createNews", "api/admin/approvedNewsLetter").hasAuthority(Role.ADMIN.name())
+                                "api/admin/createNews", "api/admin/approvedNewsLetter").hasAuthority(Role.USER.name())
                         .requestMatchers("api/producer/dashboard","api/producer/updateProducer").hasAuthority(Role.ADMIN.name())
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))

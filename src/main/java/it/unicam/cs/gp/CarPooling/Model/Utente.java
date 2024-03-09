@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -31,6 +32,7 @@ public class Utente implements UserDetails {
     @NotBlank(message = "Il campo nome non può essere vuoto")
     private String nome;
 
+
     @NotBlank(message = "Il campo cognome non può essere vuoto")
     private String cognome;
 
@@ -46,7 +48,7 @@ public class Utente implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override
