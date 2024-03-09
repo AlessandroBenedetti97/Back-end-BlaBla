@@ -1,6 +1,7 @@
 package it.unicam.cs.gp.CarPooling.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,11 +16,16 @@ import java.util.List;
 @Setter
 @Table(name = "admin", schema = "dbo")
 public class Admin implements UserDetails {
+
     @Id
-    private String ID;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer ID;
 
     @Column(name = "nome")
     private String nome;
+
+    @Column(name = "cognome")
+    private String cognome;
 
     @Column(name = "email")
     private String email;

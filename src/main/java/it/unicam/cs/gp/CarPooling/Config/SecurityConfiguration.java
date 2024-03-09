@@ -32,7 +32,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers(
-                        "api/user/createUser", "api/user/login"
+                        "api/user/createUser", "api/admin/createAdmin", "api/user/login"
                                 ).permitAll()
                         .requestMatchers("api/admin/approved","api/admin/dashboard",
                                 "api/user/getUsers",
