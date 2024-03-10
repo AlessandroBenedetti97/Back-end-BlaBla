@@ -14,15 +14,18 @@ public class Prenotazione {
     private Integer id;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "giornoSettimana")
     private GiornoSettimana giornoSettimana;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "fasciaOrariaPrenotazione")
     private FasciaOraria fasciaOrariaPrenotazione;
 
 
     @OneToOne
     @JoinColumn(name = "id_utente", referencedColumnName = "id_utente")
     private Utente utente;
+
 
     // Costruttori, Getter e Setter
 

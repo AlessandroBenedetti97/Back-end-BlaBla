@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping(path = "/api/user")
+@CrossOrigin(origins = "http://localhost:4200") // Sostituisci con il tuo dominio Angular
 public class UtenteController {
 
     @Autowired
@@ -22,7 +23,7 @@ public class UtenteController {
     public ResponseEntity<String> addUtente(@RequestBody SignUpRequest request) {
         try {
             String result = service.registerUtente(request);
-            return ResponseEntity.ok(result);
+            return ResponseEntity.ok().body("{\"message\": \"" + result + "\"}");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante l'aggiunta dell'utente: " + e.getMessage());

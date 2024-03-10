@@ -54,7 +54,10 @@ public class UtenteService implements UserDetailsService {
         Utente user = repository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
         String jwt = jwtServiceInterface.generateToken(user);
-        return JwtAuthenticationResponse.builder().token(jwt).build();
+        return JwtAuthenticationResponse.builder()
+                .token(jwt)
+                .utente(user)
+                .build();
     }
 
 
