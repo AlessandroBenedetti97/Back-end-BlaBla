@@ -23,18 +23,10 @@ public class PrenotazioneService {
     private UtenteRepository utenteRepository;
 
     public String prenota(BookingRequest bookingRequest, String token) {
-
-
-        // prendi token e deserializza token
-        // prendi mail
-        // query che getta l'utente dalla mail -> prendi id
-        // Deserializza il token per ottenere le informazioni sull'utente
+        
         String userEmail = jwtService.extractUserName(token);
-
-        // Esegue la query per ottenere l'utente basato sull'email
         Utente utente = utenteRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
-
         Prenotazione prenotazione = new Prenotazione();
         prenotazione.setUtente(utente);
         prenotazione.setFasciaOrariaPrenotazione(bookingRequest.getFascia_oraria_prenotazione());

@@ -3,6 +3,7 @@ package it.unicam.cs.gp.CarPooling.Controller;
 import it.unicam.cs.gp.CarPooling.Model.GiornoSettimana;
 import it.unicam.cs.gp.CarPooling.Model.FasciaOraria;
 import it.unicam.cs.gp.CarPooling.Model.Prenotazione;
+import it.unicam.cs.gp.CarPooling.Model.Utente;
 import it.unicam.cs.gp.CarPooling.Request.BookingRequest;
 import it.unicam.cs.gp.CarPooling.Service.PrenotazioneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,11 @@ public class PrenotazioneController {
         }
     }
     @GetMapping(path = "/allBookings")
-    public @ResponseBody Iterable<Prenotazione> getAllPrenotazioni() {
-        return prenotazioneService.findAllPrenotazioni();
-    }
+    public ResponseEntity<Iterable<Prenotazione>> getAllPrenotazioni() {
+             Iterable<Prenotazione> prenotazioni = prenotazioneService.findAllPrenotazioni();
+             return ResponseEntity.ok(prenotazioni);
+        }
+
 
     @GetMapping(path = "/booking/{id}")
     public @ResponseBody Prenotazione getPrenotazioneById(@PathVariable Integer id) {
