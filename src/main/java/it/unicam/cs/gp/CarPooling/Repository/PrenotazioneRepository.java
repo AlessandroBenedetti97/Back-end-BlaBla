@@ -10,15 +10,20 @@ import org.springframework.data.repository.query.Param;
 
 public interface PrenotazioneRepository extends CrudRepository<Prenotazione, Integer> {
 
+
+    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END " +
+            "FROM Prenotazione p " +
+            "WHERE p.utente = :utente " +
+            "AND p.giornoSettimana = :giornoSettimana " +
+            "AND p.fasciaOrariaPrenotazione = :fasciaOrariaPrenotazione")
     boolean existsByUtenteAndGiornoSettimanaAndFasciaOrariaPrenotazione(
-            Utente utente,
-            GiornoSettimana giornoSettimana,
-            FasciaOraria fasciaOrariaPrenotazione);
+            @Param("utente") Utente utente,
+            @Param("giornoSettimana") GiornoSettimana giornoSettimana,
+            @Param("fasciaOrariaPrenotazione") FasciaOraria fasciaOrariaPrenotazione);
 
     @Query("SELECT COUNT(p) FROM Prenotazione p " +
             "WHERE p.giornoSettimana = :giornoSettimana " +
             "AND p.fasciaOrariaPrenotazione = :fasciaOrariaPrenotazione ")
-
     long countByGiornoSettimanaAndFasciaOrariaPrenotazione(
             @Param("giornoSettimana") GiornoSettimana giornoSettimana,
             @Param("fasciaOrariaPrenotazione") FasciaOraria fasciaOrariaPrenotazione);

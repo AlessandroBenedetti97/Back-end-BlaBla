@@ -20,10 +20,8 @@ public class Prenotazione {
     private FasciaOraria fasciaOrariaPrenotazione;
 
 
-    @ManyToOne
-    @EqualsAndHashCode.Exclude
+    @OneToOne
     @JoinColumn(name = "id_utente", referencedColumnName = "id_utente")
-    @JsonBackReference
     private Utente utente;
 
     // Costruttori, Getter e Setter

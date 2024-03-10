@@ -51,12 +51,6 @@ public class Utente implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "utente")
-    private List<Prenotazione> prenotazioni;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "utente", orphanRemoval = true)
-    @JsonManagedReference
-    private Set<Prenotazione> barcode = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

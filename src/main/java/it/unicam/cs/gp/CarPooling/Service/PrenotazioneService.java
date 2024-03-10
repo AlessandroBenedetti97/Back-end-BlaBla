@@ -6,8 +6,6 @@ import it.unicam.cs.gp.CarPooling.Model.*;
 import it.unicam.cs.gp.CarPooling.Repository.PrenotazioneRepository;
 import it.unicam.cs.gp.CarPooling.Repository.UtenteRepository;
 import it.unicam.cs.gp.CarPooling.Request.BookingRequest;
-import it.unicam.cs.gp.CarPooling.Request.SignUpRequest;
-import org.apache.qpid.proton.codec.security.SaslOutcomeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +21,19 @@ public class PrenotazioneService {
     private UtenteRepository utenteRepository;
 
     public String prenota(BookingRequest bookingRequest, String token) {
-        
+        if(prenotazioneRepository.
+                countByGiornoSettimanaAndFasciaOrariaPrenotazione(bookingRequest.getGiorno_prenotazione(),
+                                                                  bookingRequest.getFascia_oraria_prenotazione()) > 8)
+           return null;
         String userEmail = jwtService.extractUserName(token);
         Utente utente = utenteRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
+        if(prenotazioneRepository.
+                existsByUtenteAndGiornoSettimanaAndFasciaOrariaPrenotazione(
+                        utente,
+                        bookingRequest.getGiorno_prenotazione(),
+                        bookingRequest.getFascia_oraria_prenotazione()))
+            return null;
         Prenotazione prenotazione = new Prenotazione();
         prenotazione.setUtente(utente);
         prenotazione.setFasciaOrariaPrenotazione(bookingRequest.getFascia_oraria_prenotazione());
@@ -46,6 +53,7 @@ public class PrenotazioneService {
     public void deletePrenotazione(Integer id) {
         prenotazioneRepository.deleteById(id);
     }
+
 
     // Altri metodi per la gestione delle prenotazioni
 }
