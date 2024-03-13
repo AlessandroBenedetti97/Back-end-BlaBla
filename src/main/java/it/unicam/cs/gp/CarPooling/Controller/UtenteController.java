@@ -57,4 +57,16 @@ public class UtenteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante la rimozione dell'utente: " + e.getMessage());
         }
     }
+    @GetMapping("/getUserData")
+    public ResponseEntity<Utente> getUser(@RequestHeader("Authorization") String token){
+        try {
+            String cleanedToken = token.replace("Bearer ", "");
+            Utente result = service.getData( cleanedToken);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

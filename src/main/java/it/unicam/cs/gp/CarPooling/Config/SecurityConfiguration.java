@@ -35,7 +35,7 @@ public class SecurityConfiguration {
                         "api/user/createUser", "api/admin/createAdmin", "api/user/login", "api/admin/loginAdmin",
                                 "api/booking/allBookings","api/user/getUsers").permitAll()
                         .requestMatchers("api/admin/approved","api/admin/dashboard",
-
+                                "api/user/getUserData",
                                 "api/admin/delete","api/admin/rejected",
                                 "api/admin/allProducer/notActive", "api/booking/book",
                                 "api/admin/createNews", "api/admin/approvedNewsLetter").hasAuthority(Role.USER.name())

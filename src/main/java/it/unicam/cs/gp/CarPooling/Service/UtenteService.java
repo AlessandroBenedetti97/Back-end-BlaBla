@@ -1,6 +1,8 @@
 package it.unicam.cs.gp.CarPooling.Service;
 
+import it.unicam.cs.gp.CarPooling.Model.Prenotazione;
 import it.unicam.cs.gp.CarPooling.Model.Role;
+import it.unicam.cs.gp.CarPooling.Request.BookingRequest;
 import it.unicam.cs.gp.CarPooling.Request.SignUpRequest;
 import it.unicam.cs.gp.CarPooling.Jwt.JwtServiceInterface;
 import it.unicam.cs.gp.CarPooling.Model.Utente;
@@ -26,6 +28,9 @@ public class UtenteService implements UserDetailsService {
 
     @Autowired
     private UtenteRepository repository;
+
+    @Autowired
+    private JwtServiceInterface jwtService;
     @Autowired
     private JwtServiceInterface jwtServiceInterface;
 
@@ -102,4 +107,12 @@ public UserDetails loadUserByUsername(String username) throws UsernameNotFoundEx
 private PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
 }
+
+public Utente getData(String token) {
+
+        String userEmail = jwtService.extractUserName(token);
+        Utente utente = repository.findByEmail(userEmail)
+                .orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
+        return utente;
+    }
 }
