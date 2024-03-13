@@ -37,6 +37,13 @@ public class PrenotazioneController {
              return ResponseEntity.ok(prenotazioni);
         }
 
+    @GetMapping(path="/getDayBookings")
+    public ResponseEntity<Iterable<Prenotazione>> getPrenotazioniDelGiorno(@RequestBody BookingRequest bookingRequest) {
+        GiornoSettimana giornoSettimana = bookingRequest.getGiorno_prenotazione();
+        Iterable<Prenotazione> prenotazioni = prenotazioneService.findPrenotazioniDelGiorno(giornoSettimana);
+        return ResponseEntity.ok(prenotazioni);
+    }
+
 
     @GetMapping(path = "/booking/{id}")
     public @ResponseBody Prenotazione getPrenotazioneById(@PathVariable Integer id) {

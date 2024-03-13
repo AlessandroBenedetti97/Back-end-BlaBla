@@ -39,7 +39,7 @@ public class SecurityConfiguration {
                                 "api/admin/delete","api/admin/rejected",
                                 "api/admin/allProducer/notActive", "api/booking/book",
                                 "api/admin/createNews", "api/admin/approvedNewsLetter").hasAuthority(Role.USER.name())
-                        .requestMatchers("api/producer/dashboard","api/producer/updateProducer").hasAuthority(Role.ADMIN.name())
+                        .requestMatchers("api/booking/getDayBookings","api/producer/dashboard","api/producer/updateProducer").hasAuthority(Role.ADMIN.name())
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(

@@ -27,4 +27,7 @@ public interface PrenotazioneRepository extends CrudRepository<Prenotazione, Int
     long countByGiornoSettimanaAndFasciaOrariaPrenotazione(
             @Param("giornoSettimana") GiornoSettimana giornoSettimana,
             @Param("fasciaOrariaPrenotazione") FasciaOraria fasciaOrariaPrenotazione);
+
+    @Query("SELECT p FROM Prenotazione p WHERE p.giornoSettimana = :giornoSettimana")
+    Iterable<Prenotazione> selectDayBookings(@Param("giornoSettimana") GiornoSettimana giornoSettimana);
 }

@@ -54,6 +54,8 @@ public class PrenotazioneService {
         prenotazioneRepository.deleteById(id);
     }
 
-
+    public Iterable<Prenotazione> findPrenotazioniDelGiorno(GiornoSettimana giornoSettimana){
+        return prenotazioneRepository.selectDayBookings(giornoSettimana);
+    }
     // Altri metodi per la gestione delle prenotazioni
 }
