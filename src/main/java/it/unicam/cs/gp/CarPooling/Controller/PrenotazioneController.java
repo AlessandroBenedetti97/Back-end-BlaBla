@@ -44,7 +44,14 @@ public class PrenotazioneController {
         return ResponseEntity.ok(prenotazioni);
     }
 
+    @GetMapping(path="/userBookings")
+    public ResponseEntity<Iterable<Prenotazione>> getUserBookings(@RequestHeader("Authorization") String token){
 
+            String cleanedToken = token.replace("Bearer ", "");
+            Iterable<Prenotazione> prenotazioni = prenotazioneService.getPrenotazioniUtente(cleanedToken);
+            return ResponseEntity.ok(prenotazioni);
+
+    }
     @GetMapping(path = "/booking/{id}")
     public @ResponseBody Prenotazione getPrenotazioneById(@PathVariable Integer id) {
         return prenotazioneService.getPrenotazioneById(id);

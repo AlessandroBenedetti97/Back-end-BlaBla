@@ -30,4 +30,7 @@ public interface PrenotazioneRepository extends CrudRepository<Prenotazione, Int
 
     @Query("SELECT p FROM Prenotazione p WHERE p.giornoSettimana = :giornoSettimana")
     Iterable<Prenotazione> selectDayBookings(@Param("giornoSettimana") GiornoSettimana giornoSettimana);
+
+    @Query("SELECT p FROM Prenotazione p WHERE p.utente = :utente")
+    Iterable<Prenotazione> findByUtente(@Param("utente") Utente utente);
 }

@@ -42,6 +42,14 @@ public class PrenotazioneService {
         prenotazioneRepository.save(prenotazione);
         return "tutto ok ";
     }
+
+    public Iterable<Prenotazione> getPrenotazioniUtente(String token) {
+        String userEmail = jwtService.extractUserName(token);
+        Utente utente = utenteRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
+        return prenotazioneRepository.findByUtente(utente);
+    }
+
     public Iterable<Prenotazione> findAllPrenotazioni() {
         return prenotazioneRepository.findAll();
     }

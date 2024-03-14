@@ -34,12 +34,9 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers(
                         "api/user/createUser", "api/admin/createAdmin", "api/user/login", "api/admin/loginAdmin",
                                 "api/booking/allBookings","api/user/getUsers").permitAll()
-                        .requestMatchers("api/admin/approved","api/admin/dashboard",
-                                "api/user/getUserData",
-                                "api/admin/delete","api/admin/rejected",
-                                "api/admin/allProducer/notActive", "api/booking/book",
-                                "api/admin/createNews", "api/admin/approvedNewsLetter").hasAuthority(Role.USER.name())
-                        .requestMatchers("api/booking/getDayBookings","api/producer/dashboard","api/producer/updateProducer").hasAuthority(Role.ADMIN.name())
+                        .requestMatchers("api/user/getUserData","api/admin/delete",
+                                "/api/booking/userBookings","api/booking/book").hasAuthority(Role.USER.name())
+                        .requestMatchers("api/booking/getDayBookings").hasAuthority(Role.ADMIN.name())
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(

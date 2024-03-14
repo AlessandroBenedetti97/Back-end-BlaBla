@@ -41,6 +41,7 @@ public class UtenteController {
         }
     }
 
+
     @GetMapping("/getUsers")
     public ResponseEntity<Iterable<Utente>> getAllUtenti() {
         Iterable<Utente> utenti = service.findAllUtenti();
