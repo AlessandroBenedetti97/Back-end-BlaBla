@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Questa classe serve per definire i dati per la Response di JWTAuthentication
+ */
 @Data
 @Builder
 @NoArgsConstructor
