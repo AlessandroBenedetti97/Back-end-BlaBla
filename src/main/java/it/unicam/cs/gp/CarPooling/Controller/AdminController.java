@@ -11,14 +11,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
+/**
+ * Questa classe gestisce le richieste relative alla gestione degli amministratori nel sistema CarPooling.
+ */
 @Controller
 @RequestMapping(path = "/api/admin")
 public class AdminController {
 
     @Autowired
     private AdminService service;
-
+    /**
+     * Aggiunge un nuovo amministratore al sistema.
+     *
+     * @param request la richiesta di registrazione dell'amministratore
+     * @return una ResponseEntity che indica l'esito dell'operazione
+     */
     @PostMapping("/createAdmin")
     public ResponseEntity<String> addAdmin(@RequestBody SignUpRequest request) {
         try {
@@ -29,7 +36,12 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante l'aggiunta dell'utente: " + e.getMessage());
         }
     }
-
+    /**
+     * Gestisce la richiesta di accesso di un amministratore al sistema.
+     *
+     * @param loginRequest la richiesta di accesso
+     * @return una ResponseEntity contenente il token di autenticazione se l'accesso è avvenuto con successo, altrimenti un errore di autenticazione
+     */
     @PostMapping(value ="/loginAdmin")
     public ResponseEntity<JwtAuthenticationResponse> getLogin(@RequestBody LoginRequest loginRequest){
         try{
