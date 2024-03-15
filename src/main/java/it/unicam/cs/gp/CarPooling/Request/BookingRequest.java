@@ -8,7 +8,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-
+/**
+ * Questa classe serve per definire i dati per la Request della Prenotazione
+ */
 @Getter
 @Setter
 public class BookingRequest {

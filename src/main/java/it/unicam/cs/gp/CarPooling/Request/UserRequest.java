@@ -9,7 +9,9 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-
+/**
+ * Questa classe serve per definire i dati per la Request dell'User
+ */
 @Getter
 @Setter
 public class UserRequest implements Serializable {

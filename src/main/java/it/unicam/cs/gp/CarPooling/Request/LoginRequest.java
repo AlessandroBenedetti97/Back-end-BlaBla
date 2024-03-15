@@ -6,6 +6,9 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+/**
+ * Questa classe serve per definire i dati per la Request del Login
+ */
 @Getter
 @Setter
 public class LoginRequest implements Serializable {
