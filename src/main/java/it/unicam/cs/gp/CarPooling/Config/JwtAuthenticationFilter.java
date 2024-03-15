@@ -28,6 +28,16 @@ import lombok.RequiredArgsConstructor;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final SignInService signInService;
+
+    /**
+     * Questo metodo è l'unico della classe e serve per gestire tutte le chiamate e le risposte
+     * tenendo conto dell'autorizzazioni assegnata dal JWT token
+     * @param request richesta Http
+     * @param response risposta Http
+     * @param filterChain Filtro per gestire le autorizzazioni
+     * @throws ServletException Eccezione gestita dalla classe HttpServlet
+     * @throws IOException Eccezione di Input/Output
+     */
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)

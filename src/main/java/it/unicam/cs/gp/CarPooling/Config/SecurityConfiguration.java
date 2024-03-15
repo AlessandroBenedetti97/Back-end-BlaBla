@@ -21,6 +21,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Questa classe serve per gestire e controllare la sicurezza sugli accessi per fare i vari comandi
+ * sia da parte dell'admin che da parte dell'utente.
+ */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -28,6 +32,13 @@ public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final SignInService signInService;
 
+    /**
+     * Questo metodo serve per dare le autorizzazioni ai vari comandi che si possono fare
+     * sia da parte dell'admin che da parte dell'utente.
+     * @param http connessione
+     * @return http.build() creazione della connessione
+     * @throws Exception eccezioni gestite dalla classe HttpSecurity
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
@@ -45,6 +56,10 @@ public class SecurityConfiguration {
         return http.build();
     }
 
+    /**
+     * Questo metodo serve per criptare le password.
+     * @return password criptata
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
