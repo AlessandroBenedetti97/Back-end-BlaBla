@@ -18,6 +18,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * Questa classe definisce i metodi necessari per eseguire i vari comandi dell'Admin
+ */
 @Service
 public class AdminService implements UserDetailsService {
 
@@ -31,6 +34,11 @@ public class AdminService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * Questo metodo serve per la registrazione dell'Admin
+     * @param registerRequest richiesta di registrazione
+     * @return stringa di conferma
+     */
     public String registerAdmin(SignUpRequest registerRequest) {
 
         Admin admin = new Admin();
@@ -44,6 +52,11 @@ public class AdminService implements UserDetailsService {
         return "tutto ok ";
     }
 
+    /**
+     * Questo metodo serve per il login dell'Admin
+     * @param request richiesta di login
+     * @return token generato dell'Admin
+     */
     public JwtAuthenticationResponse signIn(LoginRequest request) {
         System.out.println("Entra");
         authenticationManager.authenticate(
@@ -55,16 +68,30 @@ public class AdminService implements UserDetailsService {
         return JwtAuthenticationResponse.builder().token(jwt).build();
     }
 
-
+    /**
+     * Questo metodo serve per eliminare un Admin
+     * @param id Integer identificativo dell'Admin
+     * @return stringa di conferma
+     */
     public String deleteAdmin(Integer id) {
         repository.deleteById(id);
         return "Admin rimosso con successo";
     }
 
+    /**
+     * Questo metodo serve per cercare tutti gli Admin all'interno della Repository
+     * @return Repository con tutti gli Admin
+     */
     public Iterable<Admin> findAllAdmins() {
         return repository.findAll();
     }
 
+    /**
+     * Questo metodo serve per trovare un Admin a seconda del suo username
+     * @param username identificativo dell'Admin
+     * @return Admin cercato
+     * @throws UsernameNotFoundException Eccezione per controllare se Username esiste
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Admin admin = repository.findByEmail(username)

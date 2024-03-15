@@ -20,6 +20,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * Questa classe definisce i metodi necessari per eseguire i vari comandi dell'Utente
+ */
 @Service
 public class UtenteService implements UserDetailsService {
 
@@ -37,20 +40,29 @@ public class UtenteService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * Questo metodo serve per la registrazione dell'Utente
+     * @param registerRequest richiesta della registrazione
+     * @return stringa di conferma
+     */
     public String registerUtente(SignUpRequest registerRequest) {
 
         Utente utente = new Utente();
         utente.setNome(registerRequest.getNome());
         utente.setCognome(registerRequest.getCognome());
         utente.setEmail(registerRequest.getEmail());
-        utente.setPassword(passwordEncoder.encode(registerRequest.getPassword())); // Aggiungi le proprietà mancanti o modifica se necessario
+        utente.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         utente.setRole(Role.USER);
 
         repository.save(utente);
         return "tutto ok ";
     }
 
-
+    /**
+     * Questo metodo serve per il login dell'Utente
+     * @param request richiesta di login
+     * @return token generato dell'Utente
+     */
     public JwtAuthenticationResponse signIn(LoginRequest request) {
         System.out.println("Entra");
         authenticationManager.authenticate(
@@ -66,53 +78,86 @@ public class UtenteService implements UserDetailsService {
     }
 
 
-
-public String addUtente(String nome, String cognome) {
-    Utente utente = new Utente();
-    utente.setNome(nome);
-    utente.setCognome(cognome);
-    repository.save(utente);
-    return "Utente salvato con successo";
-}
-
-public String deleteUtente(Integer id) {
-    repository.deleteById(id);
-    return "Utente rimosso con successo";
-}
-
-public Iterable<Utente> findAllUtenti() {
-    return repository.findAll();
-}
-
-public void registerUtente(Utente utente) {
-    String encodedPassword = passwordEncoder().encode(utente.getPassword());
-    utente.setPassword(encodedPassword);
-    repository.save(utente);
-}
-
-@Override
-public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    Utente utente = repository.findByUsername(username);
-    if (utente == null) {
-        throw new UsernameNotFoundException("Utente non trovato: " + username);
+    /**
+     * Questo metodo serve per aggiungere un Utente
+     * @param nome nome dell'utente
+     * @param cognome cognome dell'utente
+     * @return stringa di conferma
+     */
+    public String addUtente(String nome, String cognome) {
+        Utente utente = new Utente();
+        utente.setNome(nome);
+        utente.setCognome(cognome);
+        repository.save(utente);
+        return "Utente salvato con successo";
     }
 
-    return User.builder()
-            .username(utente.getUsername())
-            .password(utente.getPassword())
-            .roles("USER")
-            .build();
-}
-
-private PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-}
-
-public Utente getData(String token) {
-
-        String userEmail = jwtService.extractUserName(token);
-        Utente utente = repository.findByEmail(userEmail)
-                .orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
-        return utente;
+    /**
+     * Questo metodo serve per eliminare un Utente
+     * @param id identificativo dell'Utente
+     * @return stringa di conferma
+     */
+    public String deleteUtente(Integer id) {
+        repository.deleteById(id);
+        return "Utente rimosso con successo";
     }
+
+    /**
+     * Questo metodo serve per trovare tutti gli utenti dalla repository
+     * @return repository con tutti gli utenti
+     */
+    public Iterable<Utente> findAllUtenti() {
+        return repository.findAll();
+    }
+
+    /**
+     * Questo metodo serve per la registrazione dell'utente nella repository
+     * @param utente repository con l'utente salvato
+     */
+    public void registerUtente(Utente utente) {
+        String encodedPassword = passwordEncoder().encode(utente.getPassword());
+        utente.setPassword(encodedPassword);
+        repository.save(utente);
+    }
+
+    /**
+     * Questo metodo serve per la ricerca dell'utente a seconda dell'username
+     * @param username identificativo dell'utente
+     * @return utente trovato
+     * @throws UsernameNotFoundException Eccezione dell'utente non trovato
+     */
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Utente utente = repository.findByUsername(username);
+        if (utente == null) {
+            throw new UsernameNotFoundException("Utente non trovato: " + username);
+        }
+
+        return User.builder()
+                .username(utente.getUsername())
+                .password(utente.getPassword())
+                .roles("USER")
+                .build();
+    }
+
+    /**
+     * Questo metodo serve per criptare la password
+     * @return password criptata
+     */
+    private PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    /**
+     * Questo metodo serve per la ricerca dell'utente a seconda del token
+     * @param token identificativo dell'utente
+     * @return utente trovato
+     */
+    public Utente getData(String token) {
+
+            String userEmail = jwtService.extractUserName(token);
+            Utente utente = repository.findByEmail(userEmail)
+                    .orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
+            return utente;
+        }
 }
