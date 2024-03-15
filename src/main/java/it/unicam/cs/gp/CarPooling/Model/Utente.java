@@ -15,6 +15,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Questa classe serve per definire una struttura per l'Utente
+ */
 @Entity
 @Getter
 @Setter

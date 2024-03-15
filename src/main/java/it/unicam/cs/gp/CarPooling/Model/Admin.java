@@ -11,6 +11,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Questa classe serve per definire una struttura per l'Admin
+ */
 @Entity
 @Getter
 @Setter

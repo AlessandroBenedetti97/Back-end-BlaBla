@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Questa classe serve per definire una struttura per le Prenotazioni
+ */
 @Entity
 @Getter
 @Setter

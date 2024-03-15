@@ -2,8 +2,15 @@ package it.unicam.cs.gp.CarPooling.Model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
 
+/**
+ * Questa classe serve per definire una struttura per l'Orario
+ */
 @Entity
+@Getter
+@Setter
 public class Orario {
 
     @Id
