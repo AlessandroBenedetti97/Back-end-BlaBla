@@ -8,6 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+/**
+ * Quest'interfaccia serve per definire una struttura per la Repository delle Prenotazioni
+ */
 public interface PrenotazioneRepository extends CrudRepository<Prenotazione, Integer> {
 
 

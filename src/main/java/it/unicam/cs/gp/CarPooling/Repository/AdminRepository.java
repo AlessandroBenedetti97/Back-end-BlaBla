@@ -5,7 +5,9 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-
+/**
+ * Quest'interfaccia serve per definire una struttura per la Repository dell'Admin
+ */
 public interface AdminRepository extends CrudRepository<Admin, Integer> {
     Optional<Admin> findByEmail(String email);
 
