@@ -33,7 +33,7 @@ public class PrenotazioneController {
         try {
             String cleanedToken = token.replace("Bearer ", "");
             String result = prenotazioneService.prenota(request, cleanedToken);
-            return ResponseEntity.ok(result);
+            return ResponseEntity.ok().body("{\"message\": \"" + result + "\"}");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante l'aggiunta della prenotazione: " + e.getMessage());
