@@ -96,4 +96,7 @@ public class PrenotazioneService {
     public Iterable<Prenotazione> findPrenotazioniDelGiorno(GiornoSettimana giornoSettimana){
         return prenotazioneRepository.selectDayBookings(giornoSettimana);
     }
+    public void deleteAllPrenotazioni(){
+        prenotazioneRepository.deleteAll();
+    }
 }
