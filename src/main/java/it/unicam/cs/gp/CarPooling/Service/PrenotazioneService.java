@@ -32,8 +32,9 @@ public class PrenotazioneService {
     public String prenota(BookingRequest bookingRequest, String token) {
         if(prenotazioneRepository.
                 countByGiornoSettimanaAndFasciaOrariaPrenotazione(bookingRequest.getGiorno_prenotazione(),
-                                                                  bookingRequest.getFascia_oraria_prenotazione()) > 8)
-           return "Prenotazione non disponibile per mancanza di posti.";
+                                                                  bookingRequest.getFascia_oraria_prenotazione()) > 8) {
+            return "Prenotazione non disponibile per mancanza di posti.";
+        }
         String userEmail = jwtService.extractUserName(token);
         Utente utente = utenteRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
@@ -41,8 +42,9 @@ public class PrenotazioneService {
                 existsByUtenteAndGiornoSettimanaAndFasciaOrariaPrenotazione(
                         utente,
                         bookingRequest.getGiorno_prenotazione(),
-                        bookingRequest.getFascia_oraria_prenotazione()))
+                        bookingRequest.getFascia_oraria_prenotazione())) {
             return "Prenotazione gia' effettuata.";
+        }
         Prenotazione prenotazione = new Prenotazione();
         prenotazione.setUtente(utente);
         prenotazione.setFasciaOrariaPrenotazione(bookingRequest.getFascia_oraria_prenotazione());
