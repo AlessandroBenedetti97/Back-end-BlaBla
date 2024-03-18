@@ -26,6 +26,8 @@ public class Prenotazione {
     @Column(name = "fasciaOrariaPrenotazione")
     private FasciaOraria fasciaOrariaPrenotazione;
 
+    @Column(name = "indirizzo")
+    private String indirizzo;
 
     @OneToOne
     @JoinColumn(name = "id_utente", referencedColumnName = "id_utente")
