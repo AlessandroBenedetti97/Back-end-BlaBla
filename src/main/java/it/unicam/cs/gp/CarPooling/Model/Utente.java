@@ -46,9 +46,13 @@ public class Utente implements UserDetails {
     @Column(name = "cognome")
     private String cognome;
 
-    @NotBlank
+    @NotBlank(message = "Il campo cognome non può essere vuoto")
     @Column(name = "email")
     private String email;
+
+    @NotBlank(message = "Il campo cognome non può essere vuoto")
+    @Column(name = "telefono")
+    private String telefono;
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
