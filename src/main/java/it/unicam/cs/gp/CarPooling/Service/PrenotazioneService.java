@@ -96,6 +96,10 @@ public class PrenotazioneService {
     public Iterable<Prenotazione> findPrenotazioniDelGiorno(GiornoSettimana giornoSettimana){
         return prenotazioneRepository.selectDayBookings(giornoSettimana);
     }
+
+    /**
+     * Questo metodo serve per eliminare tutte le prenotazioni dalla Repository delle Prenotazioni
+     */
     public void deleteAllPrenotazioni(){
         prenotazioneRepository.deleteAll();
     }
