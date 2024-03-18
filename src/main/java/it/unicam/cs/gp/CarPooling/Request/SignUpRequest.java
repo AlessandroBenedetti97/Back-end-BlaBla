@@ -22,5 +22,7 @@ public class SignUpRequest implements Serializable {
     public String email;
     @JsonProperty("password")
     public String password;
+    @JsonProperty("telefono")
+    public String telefono;
 
 }
