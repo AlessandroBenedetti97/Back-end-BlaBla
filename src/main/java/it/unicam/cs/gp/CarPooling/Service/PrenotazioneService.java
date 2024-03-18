@@ -49,6 +49,7 @@ public class PrenotazioneService {
         prenotazione.setUtente(utente);
         prenotazione.setFasciaOrariaPrenotazione(bookingRequest.getFascia_oraria_prenotazione());
         prenotazione.setGiornoSettimana(bookingRequest.getGiorno_prenotazione());
+        prenotazione.setIndirizzo(bookingRequest.getIndirizzo());
 
         prenotazioneRepository.save(prenotazione);
         return "tutto ok ";
