@@ -19,5 +19,7 @@ public class BookingRequest {
     public FasciaOraria fascia_oraria_prenotazione;
     @JsonProperty("giorno_prenotazione")
     public GiornoSettimana giorno_prenotazione;
+    @JsonProperty("indirizzo")
+    private String indirizzo;
 
 }
