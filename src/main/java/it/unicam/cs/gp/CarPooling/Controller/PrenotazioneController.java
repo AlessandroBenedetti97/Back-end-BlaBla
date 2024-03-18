@@ -55,7 +55,7 @@ public class PrenotazioneController {
      * @param bookingRequest la richiesta contenente il giorno di interesse
      * @return una ResponseEntity contenente le prenotazioni per il giorno specificato
      */
-    @GetMapping(path="/getDayBookings")
+    @PostMapping(path="/getDayBookings")
     public ResponseEntity<Iterable<Prenotazione>> getPrenotazioniDelGiorno(@RequestBody BookingRequest bookingRequest) {
         GiornoSettimana giornoSettimana = bookingRequest.getGiorno_prenotazione();
         Iterable<Prenotazione> prenotazioni = prenotazioneService.findPrenotazioniDelGiorno(giornoSettimana);
