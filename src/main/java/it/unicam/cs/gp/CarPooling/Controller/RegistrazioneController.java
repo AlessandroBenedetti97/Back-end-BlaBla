@@ -5,15 +5,14 @@ import it.unicam.cs.gp.CarPooling.Service.UtenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
 /**
  * Questa classe gestisce le richieste relative alla registrazione degli utenti nel sistema CarPooling.
  */
 @Controller
 @RequestMapping("/registration")
+@CrossOrigin(origins = "http://localhost:4200")
 public class RegistrazioneController {
 
     @Autowired

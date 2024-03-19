@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping(path = "/api/booking")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PrenotazioneController {
 
     @Autowired

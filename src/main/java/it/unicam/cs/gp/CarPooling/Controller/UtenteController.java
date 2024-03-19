@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping(path = "/api/user")
-@CrossOrigin(origins = "http://localhost:3306") // Sostituisci con il tuo dominio Angular
+@CrossOrigin(origins = "http://localhost:4200") // Sostituisci con il tuo dominio Angular
 public class UtenteController {
 
     @Autowired
