@@ -29,7 +29,7 @@ public class Prenotazione {
     @Column(name = "indirizzo")
     private String indirizzo;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_utente", referencedColumnName = "id_utente")
     private Utente utente;
 
