@@ -53,5 +53,21 @@ public class AdminController {
             return ResponseEntity.badRequest().body(JwtAuthenticationResponse.builder().error("Authentication failed").build());
         }
     }
-
+    /**
+     * Restituisce i dati dell'admin autenticato.
+     *
+     * @param token il token di autenticazione dell'admin
+     * @return una ResponseEntity contenente i dati dell'admin
+     */
+    @GetMapping("/getAdminData")
+    public ResponseEntity<Admin> getAdmin(@RequestHeader("Authorization") String token){
+        try {
+            String cleanedToken = token.replace("Bearer ", "");
+            Admin result = service.getData( cleanedToken);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
