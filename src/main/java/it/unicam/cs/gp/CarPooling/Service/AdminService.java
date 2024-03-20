@@ -28,7 +28,8 @@ public class AdminService implements UserDetailsService {
     private AdminRepository repository;
     @Autowired
     private AuthenticationManager authenticationManager;
-
+    @Autowired
+    private JwtServiceInterface jwtService;
     @Autowired
     private JwtServiceInterface jwtServiceInterface;
     @Autowired
@@ -103,5 +104,16 @@ public class AdminService implements UserDetailsService {
                 .roles(admin.getRole().name())
                 .build();
     }
+    /**
+     * Questo metodo serve per la ricerca dell'admin a seconda del token
+     * @param token identificativo dell'admin
+     * @return admin trovato
+     */
+    public Admin getData(String token) {
 
+        String userEmail = jwtService.extractUserName(token);
+        Admin admin = repository.findByEmail(userEmail)
+                .orElseThrow(() -> new IllegalArgumentException("Utente non trovato"));
+        return admin;
+    }
 }
